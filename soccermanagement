@@ -1,0 +1,29 @@
+CREATE TABLE players (
+    player_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    date_of_birth DATE,
+    email VARCHAR(100),
+    phone_number VARCHAR(20),
+    address VARCHAR(255),
+    position VARCHAR(50),
+    team_id INT,
+    FOREIGN KEY (team_id) REFERENCES teams(team_id)
+);
+REATE TABLE training_sessions (
+    session_id INT PRIMARY KEY AUTO_INCREMENT,
+    team_id INT,
+    session_date DATE NOT NULL,
+    start_time TIME,
+    end_time TIME,
+    location VARCHAR(255),
+    session_notes TEXT,
+    FOREIGN KEY (team_id) REFERENCES teams(team_id)
+);
+CREATE TABLE player_attendance (
+    attendance_id INT PRIMARY KEY AUTO_INCREMENT,
+    player_id INT,
+    session_id INT,
+    status ENUM('Present', 'Absent', 'Late'),
+    FOREIGN KEY (player_id) REFERENCES players(player_id),
+    FOREIGN KEY (session_id) REFERENCES training_sessions(session_id)
